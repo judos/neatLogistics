@@ -1,0 +1,9 @@
+{
+  "name": "neatLogistics",
+  "version": "0.1.1",
+  "title": "Neat logistics",
+  "author": "judos",
+  "description": "Adds logistics items which automate setting filters. Neat to build huge factories.",
+	"dependencies": ["base >= 0.12.11"],
+	"homepage": "_"
+}
