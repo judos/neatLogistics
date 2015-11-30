@@ -1,0 +1,1 @@
+- neat requester chest checks only 2,3 tiles away in every direction

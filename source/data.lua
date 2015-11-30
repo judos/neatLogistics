@@ -1,4 +1,5 @@
 require("basic-lua-extensions")
+require("functions")
 --require("config")
 
 --require("item-groups")

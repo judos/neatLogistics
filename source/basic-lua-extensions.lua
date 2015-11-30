@@ -18,12 +18,6 @@ function deepcopy(orig)
     return copy
 end
 
--- adds a recipe which is unlocked when the given technology is researched
-function addTechnologyUnlocksRecipe(technologyName, recipeName)
-	table.insert(data.raw["technology"][technologyName].effects,
-		{ type = "unlock-recipe", recipe = recipeName })
-end
-
 -- DyTech source codes:
 --[[Debug Functions]]--
 debug_master = true -- Master switch for debugging, shows most things!
@@ -41,6 +35,9 @@ function debug(message)
 end
 
 function PlayerPrint(message)
+	if type(message) ~= "string" then
+		message = serpent.block(message)
+	end
 	for _,player in pairs(game.players) do
 		player.print(message)
 	end

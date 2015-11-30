@@ -1,12 +1,14 @@
 require "defines"
 require "basic-lua-extensions"
 
+local request_material_minimal_items_amount = 5
+local request_material_maximal_items_amount = 200
 local request_materials_for_next_seconds = 30
 local produce_output_x_seconds_ahead = 30 -- e.g. gears use 0.5s -> produce 60 items for the system
-local produce_output_minimal_items_amount = 5
 
---range of search for assembling machines
-local ros = 3
+local produce_output_minimal_items_amount = 5
+-- requester chest search fields
+local requester_search = {{2,0},{3,0},{0,2},{0,3},{-2,0},{-3,0},{0,-2},{0,-3}}
 
 
 script.on_event(defines.events.on_built_entity, function(event)
@@ -50,13 +52,21 @@ script.on_event(defines.events.on_built_entity, function(event)
 		local surface = entity.surface
 		local x = entity.position.x
 		local y = entity.position.y
-		local assemblers = surface.find_entities_filtered{area = {{x-ros,y-ros},{x+ros,y+ros}},type="assembling-machine"}
+		local assemblers = {}
+		for _,coordinatePair in ipairs(requester_search) do
+			local position = {x + coordinatePair[1], y + coordinatePair[2]}
+			local entities = surface.find_entities_filtered{area = {position,position},type="assembling-machine"}
+			if entities ~= nil then
+				for _,entity in ipairs(entities) do
+					debug(entity.position.x.."|"..entity.position.y)
+					table.insert(assemblers,entity)
+				end
+			end
+		end
 		local filterForChest = {}
 		--check all assemblers and add up ingredients to use as filter in the chest
 		for _,assembler in ipairs(assemblers) do
-			-- check that the assembler is really only $ros tiles away
-			local dist = math.abs(assembler.position.x - x) + math.abs(assembler.position.y - y)
-			if dist <= ros and assembler.recipe ~= nil then
+			if assembler.recipe ~= nil then
 				local items = assembler.recipe.ingredients
 				for _,itemDescription in ipairs(items) do
 					if itemDescription["type"]=="item" then
@@ -74,6 +84,8 @@ script.on_event(defines.events.on_built_entity, function(event)
 		--set the filter slots on the requester chest:
 		local slot = 1
 		for itemName,amount in pairs(filterForChest) do
+			amount = math.max(amount,request_material_minimal_items_amount)
+			amount = math.min(amount,request_material_maximal_items_amount)
 			local itemStack = {name = itemName, count = amount}
 			function setRequestSlot()
 				entity.set_request_slot(itemStack, slot)
