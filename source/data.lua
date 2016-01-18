@@ -1,10 +1,5 @@
 require("basic-lua-extensions")
 require("functions")
---require("config")
 
---require("item-groups")
---require("recipe-category")
-require("items")
-require("entities")
-require("recipe")
-require("technology")
+require("prototypes.neat-smart-inserter")
+require("prototypes.neat-logistic-chest-requester")
