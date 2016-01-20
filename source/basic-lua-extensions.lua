@@ -22,15 +22,13 @@ end
 --[[Debug Functions]]--
 debug_master = true -- Master switch for debugging, shows most things!
 
-function debugp(message)
-	if debug_master then
-		print(message)
-	end
-end
-
 function debug(message)
 	if debug_master then
-		PlayerPrint(message)
+		if type(message) ~= "string" then
+			print(serpent.block(message))
+		else
+			print(message)
+		end
 	end
 end
 
