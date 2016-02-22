@@ -5,7 +5,7 @@ local request_materials_for_next_seconds = 30
 local requester_search = {{2,0},{3,0},{0,2},{0,3},{-2,0},{-3,0},{0,-2},{0,-3}}
 
 
-local function buildNeatLogisticChestRequester(entity,player)
+function buildNeatLogisticChestRequester(entity,player)
 	local surface = entity.surface
 	local x = entity.position.x
 	local y = entity.position.y

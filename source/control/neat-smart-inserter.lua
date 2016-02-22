@@ -1,7 +1,7 @@
 local produce_output_x_seconds_ahead = 30 -- e.g. gears use 0.5s -> produce 60 items for the system
 local produce_output_minimal_items_amount = 5
 
-local function buildNeatSmartInserter(entity,player)
+function buildNeatSmartInserter(entity,player)
 	local x = entity.position.x
 	local y = entity.position.y
 	-- get correct position of inventory before inserter
