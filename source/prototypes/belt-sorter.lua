@@ -27,7 +27,8 @@ local beltSorter = deepcopy(data.raw["container"]["wooden-chest"])
 beltSorter.name = "belt-sorter"
 beltSorter.minable.result = "belt-sorter"
 beltSorter.inventory_size = 40
-beltSorter.icon = "__neatLogistics__/graphics/entity/belt-sorter.png"
+beltSorter.icon = "__neatLogistics__/graphics/icons/belt-sorter.png"
+beltSorter.picture.filename="__neatLogistics__/graphics/entity/belt-sorter.png"
 data:extend({	beltSorter })
 
 -- Technology
