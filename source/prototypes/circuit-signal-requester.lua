@@ -4,7 +4,7 @@ data:extend({
 	{
     type = "item",
     name = "circuit-signal-requester",
-    icon = "__hardCrafting__/graphics/icons/signal-receiver.png",
+    icon = "__neatLogistics__/graphics/icons/signal-receiver.png",
     flags = {"goes-to-quickbar"},
     subgroup = "circuit-network",
 		order = "b[combinators]-d[signal-receiver]",
@@ -30,5 +30,5 @@ requester.name = "circuit-signal-requester"
 requester.minable.result = "circuit-signal-requester"
 requester.item_slot_count = 10000 -- depends on number of signals available
 requester.operable = false
-requester.sprite.filename = "__hardCrafting__/graphics/entity/signal-receiver/signal-receiver.png",
+requester.sprite.filename = "__neatLogistics__/graphics/entity/signal-receiver/signal-receiver.png",
 data:extend({ requester })
