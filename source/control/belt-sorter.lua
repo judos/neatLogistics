@@ -1,3 +1,5 @@
+local searchPriority = {{0,-1},{-1,0},{1,0},{0,1}}
+
 -- checks whether relative position is a neighbor of the belt-sorter
 local function isValidBeltDirection(x,y)
 	return math.abs(x)+math.abs(y) == 1
@@ -21,7 +23,6 @@ end
 local function isInputBelt(x,y,belt)
 	local direction = belt.direction
 	local side = beltSide(x,y,belt)
-	debug("direction "..direction.." side "..side)
 	return side == (direction + 4)%8 -- must be 180°
 end
 
@@ -38,16 +39,20 @@ function updateBeltSorter(event)
 			local y = beltSorter.position.y
 			
 			-- search for input / output belts
-			local beltCandidates = surface.find_entities_filtered{area = {{x-1, y-1}, {x+1, y+1}}, type= "transport-belt"}
 			local input = {}
 			local output = {}
-			for _,belt in ipairs(beltCandidates) do
-				if isValidBeltDirection(belt.position.x-x,belt.position.y-y) then
-					--debug("found belt at: "..(belt.position.x-x) .." "..(belt.position.y-y))
-					if isInputBelt(x,y,belt) then
-						table.insert(input,belt)
-					else
-						table.insert(output,belt)
+			for _,searchPos in pairs(searchPriority) do
+				local searchPoint = { x + searchPos[1], y + searchPos[2] }
+				local beltCandidates = surface.find_entities_filtered{area = {searchPoint, searchPoint}, type= "transport-belt"}
+				--print(serpent.block(beltCandidates))
+				for _,belt in ipairs(beltCandidates) do
+					if isValidBeltDirection(belt.position.x-x,belt.position.y-y) then
+						--debug("found belt at: "..(belt.position.x-x) .." "..(belt.position.y-y))
+						if isInputBelt(x,y,belt) then
+							table.insert(input,belt)
+						else
+							table.insert(output,belt)
+						end
 					end
 				end
 			end
@@ -76,7 +81,7 @@ function updateBeltSorter(event)
 					if beltLine.can_insert_at_back() and filter[beltSide]~=nil then
 						local canInsert = true
 						for _,itemName in pairs(filter[beltSide]) do
-							debug("checking item: "..itemName)
+							--debug("checking item: "..itemName)
 							
 							for _,inputBelt in pairs(input) do
 								for line=1,2 do
