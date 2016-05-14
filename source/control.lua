@@ -3,7 +3,6 @@ require "basic-lua-extensions"
 
 require "control.neat-logistic-chest-requester"
 require "control.neat-smart-inserter"
-require "control.belt-sorter"
 
 require "control.signalRequester"
 require "control.signalReceiver"
@@ -41,8 +40,6 @@ function onBuiltEntity(event)
 		buildNeatSmartInserter(entity,player)
 	elseif entity.name == "neat-logistic-chest-requester" then
 		buildNeatLogisticChestRequester(entity,player)
-	elseif entity.name == "belt-sorter" then
-		table.insert(global.neatLogistics.beltSorter, entity)
 	elseif entity.name == "signal-receiver" then
 		table.insert(global.hardCrafting.signalReceiver, entity)
 		entity.operable = false -- no gui needed
@@ -54,7 +51,6 @@ end
 
 -- Update tick --
 script.on_event(defines.events.on_tick, function(event)
-	updateBeltSorter(event)
 	updateSignalReceiver(event)
 	updateSignalRequester(event)
 end)
