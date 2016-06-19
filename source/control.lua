@@ -41,10 +41,10 @@ function onBuiltEntity(event)
 	elseif entity.name == "neat-logistic-chest-requester" then
 		buildNeatLogisticChestRequester(entity,player)
 	elseif entity.name == "signal-receiver" then
-		table.insert(global.hardCrafting.signalReceiver, entity)
+		table.insert(global.neatLogistics.signalReceiver, entity)
 		entity.operable = false -- no gui needed
 	elseif entity.name == "circuit-signal-requester" then
-		table.insert(global.hardCrafting.signalRequester, entity)
+		table.insert(global.neatLogistics.signalRequester, entity)
 		entity.operable = false -- no gui needed
 	end
 end

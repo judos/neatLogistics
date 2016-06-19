@@ -2,7 +2,7 @@ data:extend({
 	{
     type = "item",
     name = "antenna",
-    icon = "__hardCrafting__/graphics/icons/antenna.png",
+    icon = "__neatLogistics__/graphics/icons/antenna.png",
     flags = {"goes-to-main-inventory"},
     subgroup = "intermediate-product",
     order = "h1[electric-engine-unit]",
